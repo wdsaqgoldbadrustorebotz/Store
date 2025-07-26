@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pak RT AZ STORE - Jasa GB & Cash PB</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -25,7 +22,7 @@
             color: white;
         }
         .card {
-            @apply bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 transition duration-300 ease-in-out transform hover:scale-105;
+            @apply bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 transition duration-300 ease-in-out hover:-translate-y-2;
         }
         .navbar-link {
             @apply text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300;
@@ -33,18 +30,35 @@
         .section-title {
             @apply text-4xl font-bold text-center mb-12 text-white;
         }
+
+        /* --- LOGO KEREN DENGAN WARNA BERGANTIAN --- */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient-text {
+            background: linear-gradient(90deg, #a78bfa, #f472b6, #60a5fa, #a78bfa);
+            background-size: 250% 250%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-animation 6s ease infinite;
+            font-weight: 900; /* Membuat font lebih tebal dan keren */
+        }
+        /* --- END LOGO --- */
+
         /* Popup specific styles */
         .purchase-popup {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #2d3748; /* Darker gray */
+            background-color: #2d3748;
             color: white;
             padding: 15px 25px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            display: none; /* Hidden by default */
+            display: none;
             opacity: 0;
             transform: translateY(-20px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -58,13 +72,12 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar -->
     <nav class="bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg fixed w-full z-50 shadow-lg rounded-b-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <a href="#" class="text-white text-2xl font-bold">Pak RT AZ STORE</a>
+                        <a href="#" class="text-2xl animated-gradient-text">PAK RT AZ STORE</a>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
@@ -77,7 +90,7 @@
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
                         <span class="sr-only">Open main menu</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -87,7 +100,6 @@
             </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="navbar-link block">Beranda</a>
@@ -99,33 +111,30 @@
         </div>
     </nav>
 
-    <!-- Purchase Notification Popup -->
     <div id="purchase-popup" class="purchase-popup">
-        <p><span id="buyer-name" class="font-bold"></span> baru saja membeli <span id="item-purchased" class="font-bold text-blue-300"></span>!</p>
+        <p><i class="fas fa-check-circle text-green-400"></i> <span id="buyer-name" class="font-bold"></span> baru saja membeli <span id="item-purchased" class="font-bold text-blue-300"></span>!</p>
     </div>
 
-    <!-- Hero Section -->
     <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-center rounded-b-3xl" style="background-image: url('https://placehold.co/1920x1080/1a202c/e2e8f0?text=Point+Blank+Background');">
-        <div class="absolute inset-0 gradient-bg opacity-75 rounded-b-3xl"></div>
+        <div class="absolute inset-0 bg-black opacity-60 rounded-b-3xl"></div>
         <div class="relative z-10 p-8 max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 animate-fade-in-down">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
                 Tingkatkan Peringkatmu, Raih Kemenangan!
             </h1>
-            <p class="text-xl md:text-2xl text-gray-200 mb-10 animate-fade-in-up">
+            <p class="text-xl md:text-2xl text-gray-200 mb-10">
                 Jasa GB Rank & Cash Voucher Point Blank Terpercaya dan Termurah.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="#jasa-gb" class="btn-primary animate-fade-in-left">
-                    Lihat Jasa GB
+                <a href="#jasa-gb" class="btn-primary">
+                    <i class="fas fa-angle-double-up mr-2"></i> Lihat Jasa GB
                 </a>
-                <a href="#cash-voucher" class="btn-primary animate-fade-in-right">
-                    Beli Cash Voucher
+                <a href="#cash-voucher" class="btn-primary">
+                    <i class="fas fa-shopping-cart mr-2"></i> Beli Cash Voucher
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Jasa GB Section -->
     <section id="jasa-gb" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title">Jasa GB Rank Point Blank</h2>
@@ -134,230 +143,97 @@
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- GB Package 1 -->
                 <div class="card text-center">
                     <h3 class="text-2xl font-bold mb-4 text-white">GB Rank Bronze - Gold</h3>
-                    <p class="text-gray-400 mb-6">
-                        Cocok untuk pemula yang ingin cepat naik pangkat awal.
-                    </p>
+                    <p class="text-gray-400 mb-6">Cocok untuk pemula yang ingin cepat naik pangkat awal.</p>
                     <ul class="text-gray-300 text-left mb-6 space-y-2">
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Proses Cepat & Aman</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Garansi Anti Banned</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Layanan 24/7</li>
                     </ul>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Bronze-Gold." target="_blank" class="btn-primary w-full">
-                        Pesan Sekarang
-                    </a>
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Bronze-Gold." target="_blank" class="btn-primary w-full">Pesan Sekarang</a>
                 </div>
 
-                <!-- GB Package 2 -->
                 <div class="card text-center">
                     <h3 class="text-2xl font-bold mb-4 text-white">GB Rank Diamond - Hero</h3>
-                    <p class="text-gray-400 mb-6">
-                        Untuk troopers yang ingin mencapai pangkat menengah ke atas.
-                    </p>
+                    <p class="text-gray-400 mb-6">Untuk troopers yang ingin mencapai pangkat menengah ke atas.</p>
                     <ul class="text-gray-300 text-left mb-6 space-y-2">
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Pengerjaan Prioritas</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Statistik Terjaga</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Laporan Progress Harian</li>
                     </ul>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Diamond-Hero." target="_blank" class="btn-primary w-full">
-                        Pesan Sekarang
-                    </a>
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Diamond-Hero." target="_blank" class="btn-primary w-full">Pesan Sekarang</a>
                 </div>
 
-                <!-- GB Package 3 -->
                 <div class="card text-center">
                     <h3 class="text-2xl font-bold mb-4 text-white">GB Rank Major - General</h3>
-                    <p class="text-gray-400 mb-6">
-                        Layanan premium untuk mencapai pangkat tertinggi.
-                    </p>
+                    <p class="text-gray-400 mb-6">Layanan premium untuk mencapai pangkat tertinggi.</p>
                     <ul class="text-gray-300 text-left mb-6 space-y-2">
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Pengerjaan Super Cepat</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Jaminan Pangkat Tertinggi</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Bonus Item In-Game</li>
                     </ul>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Major-General." target="_blank" class="btn-primary w-full">
-                        Pesan Sekarang
-                    </a>
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Major-General." target="_blank" class="btn-primary w-full">Pesan Sekarang</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cash Voucher Section -->
     <section id="cash-voucher" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title">Cash Voucher Point Blank</h2>
             <p class="text-center text-gray-400 mb-16 max-w-3xl mx-auto">
-                Isi ulang Cash Point Blank Anda dengan mudah dan dapatkan bonus menarik dari kami. Tersedia berbagai denominasi sesuai kebutuhan Anda.
+                Isi ulang Cash Point Blank Anda dengan mudah dan dapatkan bonus menarik. Tersedia berbagai denominasi sesuai kebutuhan Anda.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Voucher 1 -->
-                <div class="card text-center">
-                    <h3 class="text-2xl font-bold mb-4 text-white">12.000 Cash</h3>
-                    <p class="text-gray-400 mb-6">
-                        Cocok untuk kebutuhan dasar in-game.
-                    </p>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2012.000%20Cash." target="_blank" class="btn-primary w-full">
-                        Beli Sekarang
-                    </a>
-                </div>
-
-                <!-- Voucher 2 -->
-                <div class="card text-center">
-                    <h3 class="text-2xl font-bold mb-4 text-white">35.000 Cash</h3>
-                    <p class="text-gray-400 mb-6">
-                        Pilihan populer untuk membeli item favorit.
-                    </p>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2035.000%20Cash." target="_blank" class="btn-primary w-full">
-                        Beli Sekarang
-                    </a>
-                </div>
-
-                <!-- Voucher 3 -->
-                <div class="card text-center">
-                    <h3 class="text-2xl font-bold mb-4 text-white">65.000 Cash</h3>
-                    <p class="text-gray-400 mb-6">
-                        Lebih banyak cash, lebih banyak pilihan.
-                    </p>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2065.000%20Cash." target="_blank" class="btn-primary w-full">
-                        Beli Sekarang
-                    </a>
-                </div>
-
-                <!-- Voucher 4 -->
-                <div class="card text-center">
-                    <h3 class="text-2xl font-bold mb-4 text-white">120.000 Cash</h3>
-                    <p class="text-gray-400 mb-6">
-                        Paket hemat untuk kebutuhan cash yang besar.
-                    </p>
-                    <!-- Price removed -->
-                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%20120.000%20Cash." target="_blank" class="btn-primary w-full">
-                        Beli Sekarang
-                    </a>
-                </div>
+                <div class="card text-center"><h3 class="text-2xl font-bold mb-4 text-white">12.000 Cash</h3><p class="text-gray-400 mb-6">Cocok untuk kebutuhan dasar.</p><a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20mau%20beli%20cash%2012.000." target="_blank" class="btn-primary w-full">Beli Sekarang</a></div>
+                <div class="card text-center"><h3 class="text-2xl font-bold mb-4 text-white">35.000 Cash</h3><p class="text-gray-400 mb-6">Pilihan populer untuk item favorit.</p><a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20mau%20beli%20cash%2035.000." target="_blank" class="btn-primary w-full">Beli Sekarang</a></div>
+                <div class="card text-center"><h3 class="text-2xl font-bold mb-4 text-white">65.000 Cash</h3><p class="text-gray-400 mb-6">Lebih banyak cash, lebih asyik.</p><a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20mau%20beli%20cash%2065.000." target="_blank" class="btn-primary w-full">Beli Sekarang</a></div>
+                <div class="card text-center"><h3 class="text-2xl font-bold mb-4 text-white">120.000 Cash</h3><p class="text-gray-400 mb-6">Paket hemat untuk para sultan.</p><a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20mau%20beli%20cash%20120.000." target="_blank" class="btn-primary w-full">Beli Sekarang</a></div>
             </div>
         </div>
     </section>
-
-    <!-- How to Order Section -->
+    
     <section class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-title">Cara Pemesanan</h2>
+            <h2 class="section-title">Cara Pemesanan Super Gampang</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="card">
-                    <div class="text-5xl text-blue-400 mb-4">
-                        <i class="fas fa-hand-pointer"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">1. Pilih Layanan</h3>
-                    <p class="text-gray-400">Pilih jasa GB atau denominasi cash voucher yang Anda inginkan.</p>
-                </div>
-                <div class="card">
-                    <div class="text-5xl text-green-400 mb-4">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">2. Hubungi Kami</h3>
-                    <p class="text-gray-400">Klik tombol "Pesan Sekarang" atau "Beli Sekarang" untuk langsung terhubung ke WhatsApp kami.</p>
-                </div>
-                <div class="card">
-                    <div class="text-5xl text-purple-400 mb-4">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">3. Lakukan Pembayaran</h3>
-                    <p class="text-gray-400">Ikuti instruksi pembayaran yang diberikan oleh admin kami.</p>
-                </div>
+                <div class="card"><div class="text-5xl text-blue-400 mb-4"><i class="fas fa-hand-pointer"></i></div><h3 class="text-xl font-bold mb-3 text-white">1. Pilih Layanan</h3><p class="text-gray-400">Pilih paket GB atau voucher cash yang kamu inginkan.</p></div>
+                <div class="card"><div class="text-5xl text-green-400 mb-4"><i class="fab fa-whatsapp"></i></div><h3 class="text-xl font-bold mb-3 text-white">2. Hubungi Kami</h3><p class="text-gray-400">Klik tombol pesan untuk terhubung ke WhatsApp admin.</p></div>
+                <div class="card"><div class="text-5xl text-purple-400 mb-4"><i class="fas fa-money-bill-wave"></i></div><h3 class="text-xl font-bold mb-3 text-white">3. Bayar & Proses</h3><p class="text-gray-400">Lakukan pembayaran dan kami akan segera proses pesananmu.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Reviews Section -->
     <section id="ulasan" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-title">Ulasan Pelanggan</h2>
+            <h2 class="section-title">Testimoni Pelanggan</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm">5 Bintang</p>
-                    </div>
-                    <p class="text-gray-300 italic mb-4">"Layanan GB-nya cepat banget! Akun saya langsung naik rank sesuai target. Adminnya responsif dan ramah. Sangat recommended untuk troopers yang sibuk!"</p>
-                    <p class="font-semibold text-white">- Rio, Jakarta</p>
-                </div>
-                <!-- Review 2 -->
-                <div class="card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm">4.5 Bintang</p>
-                    </div>
-                    <p class="text-gray-300 italic mb-4">"Pembelian cash voucher di sini selalu lancar dan cepat masuk. Ada bonus juga, jadi lebih untung. Prosesnya mudah, tinggal chat WA langsung beres!"</p>
-                    <p class="font-semibold text-white">- Sinta, Surabaya</p>
-                </div>
-                <!-- Review 3 -->
-                <div class="card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm">5 Bintang</p>
-                    </div>
-                    <p class="text-gray-300 italic mb-4">"Awalnya ragu, tapi setelah coba jasa GB Major ke General, hasilnya luar biasa! Akun aman dan pengerjaan sesuai janji. Top markotop Pak RT AZ STORE!"</p>
-                    <p class="font-semibold text-white">- Bima, Bandung</p>
-                </div>
-                <!-- Review 4 -->
-                <div class="card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 italic mb-4">"Sangat puas dengan pelayanan cash voucher. Harga bersaing dan prosesnya instan. Tidak perlu khawatir lagi kehabisan cash saat event penting!"</p>
-                    <p class="font-semibold text-white">- Clara, Medan</p>
-                </div>
+                <div class="card"><div class="flex items-center mb-4"><div class="text-yellow-400 mr-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div><p class="text-gray-300 italic mb-4">"Layanan GB-nya cepat banget! Akun saya langsung naik rank sesuai target. Adminnya responsif dan ramah. Recommended!"</p><p class="font-semibold text-white">- Rio, Jakarta</p></div>
+                <div class="card"><div class="flex items-center mb-4"><div class="text-yellow-400 mr-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div><p class="text-gray-300 italic mb-4">"Beli cash di sini lancar dan cepat masuk. Ada bonusnya juga, jadi lebih untung. Prosesnya gampang, tinggal chat WA beres!"</p><p class="font-semibold text-white">- Sinta, Surabaya</p></div>
+                <div class="card"><div class="flex items-center mb-4"><div class="text-yellow-400 mr-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div><p class="text-gray-300 italic mb-4">"Awalnya ragu, tapi setelah coba jasa GB Major, hasilnya luar biasa! Akun aman dan pengerjaan sesuai janji. Top markotop Pak RT AZ STORE!"</p><p class="font-semibold text-white">- Bima, Bandung</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="kontak" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-2xl">
+    <section id="kontak" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="section-title">Hubungi Kami</h2>
-            <p class="text-gray-400 mb-10">
-                Jangan ragu untuk menghubungi kami melalui WhatsApp untuk pertanyaan lebih lanjut atau pemesanan.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-6 sm:space-y-0 sm:space-x-8">
-                <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20Pak%20RT%20AZ%20STORE." target="_blank" class="btn-primary flex items-center justify-center text-lg">
-                    <i class="fab fa-whatsapp mr-3 text-2xl"></i> WhatsApp
-                </a>
-            </div>
+            <p class="text-gray-400 mb-10">Punya pertanyaan atau ingin langsung pesan? Jangan ragu hubungi kami via WhatsApp.</p>
+            <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20Pak%20RT%20AZ%20STORE." target="_blank" class="btn-primary inline-flex items-center justify-center text-lg">
+                <i class="fab fa-whatsapp mr-3 text-2xl"></i> Chat via WhatsApp
+            </a>
             <div class="mt-12 text-gray-500 text-sm">
                 <p>Jam Operasional: Setiap Hari, 09:00 - 22:00 WIB</p>
-                <p>Email: info@pbstoresample.com (contoh)</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 py-8 text-gray-400 text-center rounded-t-xl mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p>&copy; 2025 Pak RT AZ STORE. All rights reserved.</p>
-            <div class="mt-4 flex justify-center space-x-6">
-                <a href="#" class="hover:text-white transition duration-300">Kebijakan Privasi</a>
-                <span class="text-gray-600">|</span>
-                <a href="#" class="hover:text-white transition duration-300">Syarat & Ketentuan</a>
-            </div>
-            <p class="mt-4 text-gray-500 text-sm">Dibuat oleh Pak RT AZ STORE</p>
+            <p>&copy; 2025 PAK RT AZ STORE. All rights reserved.</p>
+            <p class="mt-4 text-gray-500 text-sm">Dibuat dengan ❤️ oleh Pak RT</p>
         </div>
     </footer>
 
@@ -366,12 +242,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu after clicking a link
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (!mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
@@ -381,58 +252,38 @@
 
         // Toggle mobile menu
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
         // Purchase Notification Popup Logic
         const purchases = [
-            { name: "Andi", item: "GB Rank Diamond" },
-            { name: "Budi", item: "Cash Voucher" },
-            { name: "Citra", item: "GB Rank Major" },
-            { name: "Denny", item: "Cash Voucher" },
-            { name: "Eka", item: "GB Rank Bronze" },
-            { name: "Fajar", item: "Cash Voucher" },
-            { name: "Gita", item: "GB Rank Hero" },
-            { name: "Hendra", item: "Cash Voucher" },
-            { name: "Indra", item: "GB Rank General" },
-            { name: "Joko", item: "Cash Voucher" },
+            { name: "Andi****", item: "GB Rank Diamond" },
+            { name: "Budi****", item: "12.000 Cash" },
+            { name: "Citr****", item: "GB Rank Major" },
+            { name: "Denn****", item: "35.000 Cash" },
+            { name: "Eka_****", item: "GB Rank Bronze" },
+            { name: "Faja****", item: "65.000 Cash" },
         ];
-
         const purchasePopup = document.getElementById('purchase-popup');
         const buyerName = document.getElementById('buyer-name');
         const itemPurchased = document.getElementById('item-purchased');
         let currentPurchaseIndex = 0;
 
         function showNextPurchase() {
-            if (purchasePopup.classList.contains('show')) {
-                purchasePopup.classList.remove('show');
-                setTimeout(() => {
-                    updatePopupContent();
-                }, 500); // Wait for fade-out transition
-            } else {
-                updatePopupContent();
-            }
-        }
-
-        function updatePopupContent() {
-            const purchase = purchases[currentPurchaseIndex];
+            const purchase = purchases[Math.floor(Math.random() * purchases.length)]; // Show random purchase
             buyerName.textContent = purchase.name;
             itemPurchased.textContent = purchase.item;
             purchasePopup.classList.add('show');
-
-            currentPurchaseIndex = (currentPurchaseIndex + 1) % purchases.length;
-
             setTimeout(() => {
                 purchasePopup.classList.remove('show');
             }, 4000); // Show for 4 seconds
         }
 
-        // Start showing popups after a delay, then every 5 seconds
+        // Start showing popups after a delay, then loop
         setTimeout(() => {
             showNextPurchase();
-            setInterval(showNextPurchase, 5000); // Change every 5 seconds (4s show + 1s hidden)
-        }, 2000); // Initial delay of 2 seconds
+            setInterval(showNextPurchase, 8000); // Show new popup every 8 seconds
+        }, 3000); // Initial delay
     </script>
 </body>
 </html>
