@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PB Store - Jasa GB & Cash Voucher</title>
+    <title>Pak RT AZ STORE - Jasa GB & Cash PB</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter -->
@@ -33,6 +33,27 @@
         .section-title {
             @apply text-4xl font-bold text-center mb-12 text-white;
         }
+        /* Popup specific styles */
+        .purchase-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2d3748; /* Darker gray */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .purchase-popup.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -43,13 +64,14 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <a href="#" class="text-white text-2xl font-bold">PB Store</a>
+                        <a href="#" class="text-white text-2xl font-bold">Pak RT AZ STORE</a>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <a href="#home" class="navbar-link">Beranda</a>
                             <a href="#jasa-gb" class="navbar-link">Jasa GB</a>
                             <a href="#cash-voucher" class="navbar-link">Cash Voucher</a>
+                            <a href="#ulasan" class="navbar-link">Ulasan</a>
                             <a href="#kontak" class="navbar-link">Kontak</a>
                         </div>
                     </div>
@@ -71,10 +93,16 @@
                 <a href="#home" class="navbar-link block">Beranda</a>
                 <a href="#jasa-gb" class="navbar-link block">Jasa GB</a>
                 <a href="#cash-voucher" class="navbar-link block">Cash Voucher</a>
+                <a href="#ulasan" class="navbar-link block">Ulasan</a>
                 <a href="#kontak" class="navbar-link block">Kontak</a>
             </div>
         </div>
     </nav>
+
+    <!-- Purchase Notification Popup -->
+    <div id="purchase-popup" class="purchase-popup">
+        <p><span id="buyer-name" class="font-bold"></span> baru saja membeli <span id="item-purchased" class="font-bold text-blue-300"></span>!</p>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-center rounded-b-3xl" style="background-image: url('https://placehold.co/1920x1080/1a202c/e2e8f0?text=Point+Blank+Background');">
@@ -117,8 +145,8 @@
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Garansi Anti Banned</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Layanan 24/7</li>
                     </ul>
-                    <div class="text-3xl font-extrabold text-white mb-6">Mulai dari Rp 50.000</div>
-                    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Bronze-Gold." target="_blank" class="btn-primary w-full">
+                    <!-- Price removed -->
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Bronze-Gold." target="_blank" class="btn-primary w-full">
                         Pesan Sekarang
                     </a>
                 </div>
@@ -134,8 +162,8 @@
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Statistik Terjaga</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Laporan Progress Harian</li>
                     </ul>
-                    <div class="text-3xl font-extrabold text-white mb-6">Mulai dari Rp 150.000</div>
-                    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Diamond-Hero." target="_blank" class="btn-primary w-full">
+                    <!-- Price removed -->
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Diamond-Hero." target="_blank" class="btn-primary w-full">
                         Pesan Sekarang
                     </a>
                 </div>
@@ -151,8 +179,8 @@
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Jaminan Pangkat Tertinggi</li>
                         <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Bonus Item In-Game</li>
                     </ul>
-                    <div class="text-3xl font-extrabold text-white mb-6">Mulai dari Rp 300.000</div>
-                    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Major-General." target="_blank" class="btn-primary w-full">
+                    <!-- Price removed -->
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20jasa%20GB%20Rank%20Major-General." target="_blank" class="btn-primary w-full">
                         Pesan Sekarang
                     </a>
                 </div>
@@ -175,8 +203,8 @@
                     <p class="text-gray-400 mb-6">
                         Cocok untuk kebutuhan dasar in-game.
                     </p>
-                    <div class="text-3xl font-extrabold text-white mb-6">Rp 10.000</div>
-                    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2012.000%20Cash." target="_blank" class="btn-primary w-full">
+                    <!-- Price removed -->
+                    <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2012.000%20Cash." target="_blank" class="btn-primary w-full">
                         Beli Sekarang
                     </a>
                 </div>
@@ -187,7 +215,7 @@
                     <p class="text-gray-400 mb-6">
                         Pilihan populer untuk membeli item favorit.
                     </p>
-                    <div class="text-3xl font-extrabold text-white mb-6">Rp 30.000</div>
+                    <!-- Price removed -->
                     <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2035.000%20Cash." target="_blank" class="btn-primary w-full">
                         Beli Sekarang
                     </a>
@@ -199,7 +227,7 @@
                     <p class="text-gray-400 mb-6">
                         Lebih banyak cash, lebih banyak pilihan.
                     </p>
-                    <div class="text-3xl font-extrabold text-white mb-6">Rp 50.000</div>
+                    <!-- Price removed -->
                     <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%2065.000%20Cash." target="_blank" class="btn-primary w-full">
                         Beli Sekarang
                     </a>
@@ -211,7 +239,7 @@
                     <p class="text-gray-400 mb-6">
                         Paket hemat untuk kebutuhan cash yang besar.
                     </p>
-                    <div class="text-3xl font-extrabold text-white mb-6">Rp 100.000</div>
+                    <!-- Price removed -->
                     <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20tertarik%20dengan%20cash%20voucher%20120.000%20Cash." target="_blank" class="btn-primary w-full">
                         Beli Sekarang
                     </a>
@@ -250,19 +278,67 @@
         </div>
     </section>
 
+    <!-- Reviews Section -->
+    <section id="ulasan" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title">Ulasan Pelanggan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm">5 Bintang</p>
+                    </div>
+                    <p class="text-gray-300 italic mb-4">"Layanan GB-nya cepat banget! Akun saya langsung naik rank sesuai target. Adminnya responsif dan ramah. Sangat recommended untuk troopers yang sibuk!"</p>
+                    <p class="font-semibold text-white">- Rio, Jakarta</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm">4.5 Bintang</p>
+                    </div>
+                    <p class="text-gray-300 italic mb-4">"Pembelian cash voucher di sini selalu lancar dan cepat masuk. Ada bonus juga, jadi lebih untung. Prosesnya mudah, tinggal chat WA langsung beres!"</p>
+                    <p class="font-semibold text-white">- Sinta, Surabaya</p>
+                </div>
+                <!-- Review 3 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm">5 Bintang</p>
+                    </div>
+                    <p class="text-gray-300 italic mb-4">"Awalnya ragu, tapi setelah coba jasa GB Major ke General, hasilnya luar biasa! Akun aman dan pengerjaan sesuai janji. Top markotop Pak RT AZ STORE!"</p>
+                    <p class="font-semibold text-white">- Bima, Bandung</p>
+                </div>
+                <!-- Review 4 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic mb-4">"Sangat puas dengan pelayanan cash voucher. Harga bersaing dan prosesnya instan. Tidak perlu khawatir lagi kehabisan cash saat event penting!"</p>
+                    <p class="font-semibold text-white">- Clara, Medan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="kontak" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-2xl">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="section-title">Hubungi Kami</h2>
             <p class="text-gray-400 mb-10">
-                Jangan ragu untuk menghubungi kami melalui WhatsApp atau Instagram untuk pertanyaan lebih lanjut atau pemesanan.
+                Jangan ragu untuk menghubungi kami melalui WhatsApp untuk pertanyaan lebih lanjut atau pemesanan.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-6 sm:space-y-0 sm:space-x-8">
-                <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20PB%20Store." target="_blank" class="btn-primary flex items-center justify-center text-lg">
+                <a href="https://wa.me/6282120208785?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20Pak%20RT%20AZ%20STORE." target="_blank" class="btn-primary flex items-center justify-center text-lg">
                     <i class="fab fa-whatsapp mr-3 text-2xl"></i> WhatsApp
-                </a>
-                <a href="https://www.instagram.com/namainstagramanda/" target="_blank" class="btn-primary flex items-center justify-center text-lg bg-pink-500 hover:bg-pink-600">
-                    <i class="fab fa-instagram mr-3 text-2xl"></i> Instagram
                 </a>
             </div>
             <div class="mt-12 text-gray-500 text-sm">
@@ -275,12 +351,13 @@
     <!-- Footer -->
     <footer class="bg-gray-900 py-8 text-gray-400 text-center rounded-t-xl mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p>&copy; 2025 PB Store. All rights reserved.</p>
+            <p>&copy; 2025 Pak RT AZ STORE. All rights reserved.</p>
             <div class="mt-4 flex justify-center space-x-6">
                 <a href="#" class="hover:text-white transition duration-300">Kebijakan Privasi</a>
                 <span class="text-gray-600">|</span>
                 <a href="#" class="hover:text-white transition duration-300">Syarat & Ketentuan</a>
             </div>
+            <p class="mt-4 text-gray-500 text-sm">Dibuat oleh Pak RT AZ STORE</p>
         </div>
     </footer>
 
@@ -307,6 +384,55 @@
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
         });
+
+        // Purchase Notification Popup Logic
+        const purchases = [
+            { name: "Andi", item: "GB Rank Diamond" },
+            { name: "Budi", item: "Cash Voucher" },
+            { name: "Citra", item: "GB Rank Major" },
+            { name: "Denny", item: "Cash Voucher" },
+            { name: "Eka", item: "GB Rank Bronze" },
+            { name: "Fajar", item: "Cash Voucher" },
+            { name: "Gita", item: "GB Rank Hero" },
+            { name: "Hendra", item: "Cash Voucher" },
+            { name: "Indra", item: "GB Rank General" },
+            { name: "Joko", item: "Cash Voucher" },
+        ];
+
+        const purchasePopup = document.getElementById('purchase-popup');
+        const buyerName = document.getElementById('buyer-name');
+        const itemPurchased = document.getElementById('item-purchased');
+        let currentPurchaseIndex = 0;
+
+        function showNextPurchase() {
+            if (purchasePopup.classList.contains('show')) {
+                purchasePopup.classList.remove('show');
+                setTimeout(() => {
+                    updatePopupContent();
+                }, 500); // Wait for fade-out transition
+            } else {
+                updatePopupContent();
+            }
+        }
+
+        function updatePopupContent() {
+            const purchase = purchases[currentPurchaseIndex];
+            buyerName.textContent = purchase.name;
+            itemPurchased.textContent = purchase.item;
+            purchasePopup.classList.add('show');
+
+            currentPurchaseIndex = (currentPurchaseIndex + 1) % purchases.length;
+
+            setTimeout(() => {
+                purchasePopup.classList.remove('show');
+            }, 4000); // Show for 4 seconds
+        }
+
+        // Start showing popups after a delay, then every 5 seconds
+        setTimeout(() => {
+            showNextPurchase();
+            setInterval(showNextPurchase, 5000); // Change every 5 seconds (4s show + 1s hidden)
+        }, 2000); // Initial delay of 2 seconds
     </script>
 </body>
 </html>
