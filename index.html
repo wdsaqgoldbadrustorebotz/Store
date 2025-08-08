@@ -1,241 +1,765 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RT AZ STORE - Jual Beli Akun & Voucher Point Blank</title>
-    
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins for a modern look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons for modern icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BADRU STORE — Solusi Digital Terlengkap</title>
+  <meta name="description" content="BADRU STORE • Jual Kebutuhan Sosial Media, Aplikasi Premium, dan Verifikasi OTP (NOKOS) Terlengkap. Proses Cepat, Aman, dan Bergaransi." />
 
-    <style>
-        /* Apply the Poppins font to the entire page */
-        body {
-            font-family: 'Poppins', sans-serif;
-            /* Luxurious radial gradient background */
-            background-color: #111827;
-            background-image: radial-gradient(circle at top, #1f2937, #111827 50%);
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Feather Icons CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+  <script>
+    // Konfigurasi Tailwind CSS
+    tailwind.config = {
+      darkMode: 'class', // Mengaktifkan mode gelap berdasarkan class 'dark' di <html>
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'], // Menggunakan font Inter sebagai default
+          },
+          colors: {
+            primary: { // Palet warna kustom untuk primary
+              '50': '#eff6ff', '100': '#dbeafe', '200': '#bfdbfe', '300': '#93c5fd', '400': '#60a5fa', '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '800': '#1e40af', '900': '#1e3a8a', '950': '#172554',
+            },
+          },
+          keyframes: { // Keyframes untuk animasi kustom
+            shimmer: { '0%': { backgroundPosition: '200% 0' }, '100%': { backgroundPosition: '-200% 0' } },
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-5px)' } },
+            slideDown: { '0%': { transform: 'translateY(-100%)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            slideUp: { '0%': { transform: 'translateY(0)', opacity: '1' }, '100%': { transform: 'translateY(-100%)', opacity: '0' } },
+          },
+          animation: { // Nama animasi yang bisa digunakan di class Tailwind
+            shimmer: 'shimmer 3s linear infinite',
+            float: 'float 4s ease-in-out infinite',
+            'slide-down': 'slideDown 0.5s ease-out forwards',
+            'slide-up': 'slideUp 0.5s ease-out forwards',
+          }
         }
-        /* Gradient text for the logo for a luxurious feel */
-        .logo-gradient {
-            background: linear-gradient(90deg, #FBBF24, #F97316);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
-        /* Animation for the purchase notification popup */
-        @keyframes slideInFromRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        @keyframes slideOutToRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-        .popup-enter {
-            animation: slideInFromRight 0.5s ease-out forwards;
-        }
-        .popup-exit {
-            animation: slideOutToRight 0.5s ease-in forwards;
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://placehold.co/64x64/2563eb/ffffff?text=B&font=inter" />
+
+  <!-- Custom CSS -->
+  <style>
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    .toast { position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 9999; }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(37, 99, 235, 0.1), 0 4px 6px rgba(37, 99, 235, 0.05); }
+    .dark .card-hover:hover { box-shadow: 0 14px 30px rgba(59, 130, 246, 0.1), 0 4px 6px rgba(59, 130, 246, 0.05); }
+    details > summary { list-style: none; } /* Menghilangkan marker default pada elemen details */
+    details > summary::-webkit-details-marker { display: none; }
+    .stat-card { /* Gaya untuk kartu statistik dengan efek blur */
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .dark .stat-card { /* Gaya stat card untuk mode gelap */
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white antialiased">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 selection:bg-primary-600 selection:text-white font-sans">
 
-    <!-- Main Container -->
-    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+  <!-- Purchase Notification Bar (Hidden by default, shown by JS) -->
+  <div id="notification-bar" class="bg-primary-600 text-white text-sm text-center py-2 px-4 fixed top-0 w-full z-50 hidden"></div>
 
-        <!-- Header Section (Unchanged) -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold logo-gradient mb-2">
-                RT AZ STORE
-            </h1>
-            <p id="greeting" class="text-2xl text-gray-300 font-semibold"></p>
-            <p id="datetime" class="text-md text-gray-400 mt-1"></p>
-            <div id="clock" class="text-lg font-mono text-yellow-400 mt-2"></div>
-        </header>
+  <div id="app" class="min-h-screen flex flex-col pt-10">
 
-        <!-- Services/Products Section (Unchanged) -->
-        <main>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 transform hover:scale-105 hover:border-yellow-400 transition-all duration-300 flex flex-col">
-                    <div class="flex-grow"><h2 class="text-2xl font-bold mb-2 text-yellow-400">JUAL AKUN PB</h2><p class="text-gray-300 mb-4">Menyediakan akun Point Blank berbagai pangkat, siap pakai dan aman.</p></div>
-                    <a href="https://wa.me/6282120208785?text=Halo%20RT%20AZ%20STORE,%20saya%20tertarik%20untuk%20membeli%20akun%20Point%20Blank." target="_blank" class="mt-auto w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg inline-flex items-center justify-center transition-colors"><i data-lucide="shopping-cart" class="mr-2"></i> Beli via WhatsApp</a>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 transform hover:scale-105 hover:border-yellow-400 transition-all duration-300 flex flex-col">
-                    <div class="flex-grow"><h2 class="text-2xl font-bold mb-2 text-yellow-400">JASA GB PB</h2><p class="text-gray-300 mb-4">Naikkan pangkat dan EXP dengan cepat melalui jasa GB terpercaya kami.</p></div>
-                    <a href="https://wa.me/6282120208785?text=Halo%20RT%20AZ%20STORE,%20saya%20tertarik%20dengan%20Jasa%20GB%20Point%20Blank." target="_blank" class="mt-auto w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg inline-flex items-center justify-center transition-colors"><i data-lucide="zap" class="mr-2"></i> Pesan Jasa GB</a>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 transform hover:scale-105 hover:border-yellow-400 transition-all duration-300 flex flex-col">
-                    <div class="flex-grow"><h2 class="text-2xl font-bold mb-2 text-yellow-400">JUAL VOUCHER</h2><p class="text-gray-300 mb-4">Tersedia voucher Point Blank Cash dengan berbagai nominal, proses cepat.</p></div>
-                    <a href="https://wa.me/6282120208785?text=Halo%20RT%20AZ%20STORE,%20saya%20tertarik%20untuk%20membeli%20Voucher%20Point%20Blank." target="_blank" class="mt-auto w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg inline-flex items-center justify-center transition-colors"><i data-lucide="ticket" class="mr-2"></i> Beli Voucher</a>
-                </div>
+    <!-- Top Bar: Greeting + Theme Toggle -->
+    <header class="w-full border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur sticky top-10 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <div class="text-sm sm:text-base font-medium" id="greeting">Selamat datang 👋</div>
+        <div class="flex items-center gap-3">
+          <!-- ELEMEN UNTUK TANGGAL DAN JAM -->
+          <span id="datetime" class="text-sm text-gray-600 dark:text-gray-400 font-medium"></span>
+          <button id="themeToggle" class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+            <i data-feather="moon" class="h-5 w-5 block" id="theme-icon-dark"></i>
+            <i data-feather="sun" class="h-5 w-5 hidden" id="theme-icon-light"></i>
+          </button>
+        </div>
+      </div>
+      <!-- New: Random Quote Section -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 text-center text-sm text-gray-600 dark:text-gray-400 italic">
+        <p id="randomQuote"></p>
+      </div>
+    </header>
+
+    <!-- Hero / Brand Section -->
+    <section class="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <!-- Background gradient effect -->
+      <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-sky-50 dark:from-gray-900 dark:via-gray-900 dark:to-primary-950 pointer-events-none"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 relative">
+        <div class="text-center">
+          <div class="inline-block mb-4">
+            <!-- Logo 'B' with shimmer animation -->
+            <div class="h-16 w-16 rounded-2xl bg-gradient-to-tr from-primary-500 to-sky-500 animate-shimmer bg-[length:300%_100%] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-primary-500/30">B</div>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">BADRU <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-sky-500 logo-animate">STORE</span></h1>
+          <p class="max-w-2xl mx-auto mt-3 text-base sm:text-lg text-gray-600 dark:text-gray-400">Platform Terlengkap untuk Kebutuhan Digital Anda. Cepat, Aman, dan Bergaransi Resmi.</p>
+        </div>
+
+        <!-- Dynamic Stats -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <div class="stat-card p-4 rounded-xl text-center">
+                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pengguna Aktif</p>
+                <p id="active-users" class="text-2xl font-bold text-primary-600 dark:text-primary-400">1,250+</p>
             </div>
-        </main>
-
-        <!-- Customer Reviews Section (Expanded) -->
-        <section class="mt-16">
-            <h3 class="text-3xl font-bold text-center mb-8">Ulasan Pelanggan</h3>
-            <div class="space-y-6">
-                <!-- Review 1 -->
-                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 flex items-start space-x-4">
-                    <img src="https://placehold.co/48x48/FBBF24/111827?text=A" alt="User Avatar" class="w-12 h-12 rounded-full flex-shrink-0">
-                    <div>
-                        <div class="flex items-center mb-1"><span class="font-bold text-yellow-400 mr-2">Ahmad S.</span><div class="flex text-yellow-500"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div></div>
-                        <p class="text-gray-300">"Mantap, proses pembelian akunnya cepat banget. Adminnya ramah dan akunnya aman. Recommended seller!"</p>
-                    </div>
-                </div>
-                <!-- Review 2 -->
-                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 flex items-start space-x-4">
-                    <img src="https://placehold.co/48x48/F97316/111827?text=D" alt="User Avatar" class="w-12 h-12 rounded-full flex-shrink-0">
-                    <div>
-                        <div class="flex items-center mb-1"><span class="font-bold text-yellow-400 mr-2">Dian K.</span><div class="flex text-yellow-500"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div></div>
-                        <p class="text-gray-300">"Jasa GB nya work 100%. Pangkat langsung naik drastis dalam seminggu. Bakal langganan di sini."</p>
-                    </div>
-                </div>
-                <!-- Review 3 -->
-                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 flex items-start space-x-4">
-                    <img src="https://placehold.co/48x48/34D399/111827?text=R" alt="User Avatar" class="w-12 h-12 rounded-full flex-shrink-0">
-                    <div>
-                        <div class="flex items-center mb-1"><span class="font-bold text-yellow-400 mr-2">Rangga P.</span><div class="flex text-yellow-500"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star-half" class="w-4 h-4 fill-current"></i></div></div>
-                        <p class="text-gray-300">"Voucher cash nya paling murah dibanding toko lain. Prosesnya juga gak sampai 5 menit, langsung masuk. Mantap!"</p>
-                    </div>
-                </div>
-                 <!-- Review 4 -->
-                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 flex items-start space-x-4">
-                    <img src="https://placehold.co/48x48/8B5CF6/111827?text=S" alt="User Avatar" class="w-12 h-12 rounded-full flex-shrink-0">
-                    <div>
-                        <div class="flex items-center mb-1"><span class="font-bold text-yellow-400 mr-2">Siti N.</span><div class="flex text-yellow-500"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div></div>
-                        <p class="text-gray-300">"Awalnya ragu, tapi ternyata tokonya amanah banget. Akun yang saya beli sesuai deskripsi. Terima kasih RT AZ STORE!"</p>
-                    </div>
-                </div>
-                 <!-- Review 5 -->
-                <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 flex items-start space-x-4">
-                    <img src="https://placehold.co/48x48/EC4899/111827?text=E" alt="User Avatar" class="w-12 h-12 rounded-full flex-shrink-0">
-                    <div>
-                        <div class="flex items-center mb-1"><span class="font-bold text-yellow-400 mr-2">Eko W.</span><div class="flex text-yellow-500"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div></div>
-                        <p class="text-gray-300">"Pelayanan GB nya top markotop. Dikerjain sama pro player kayaknya, hasilnya memuaskan. GGWP!"</p>
-                    </div>
-                </div>
+            <div class="stat-card p-4 rounded-xl text-center">
+                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Pembelian</p>
+                <p id="total-purchases" class="text-2xl font-bold text-primary-600 dark:text-primary-400">25,800+</p>
             </div>
+            <div class="stat-card p-4 rounded-xl text-center">
+                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Member</p>
+                <p id="total-members" class="text-2xl font-bold text-primary-600 dark:text-primary-400">8,500+</p>
+            </div>
+        </div>
+
+        <!-- Search Input & Category Pills -->
+        <div class="mt-10 max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 sm:items-center">
+          <div class="flex-1 relative">
+            <i data-feather="search" class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+            <input id="searchInput" type="search" placeholder="Cari layanan (e.g., Instagram, Netflix)..." class="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+          </div>
+        </div>
+        <div id="categoryPills" class="mt-6 flex flex-wrap justify-center gap-2 text-sm"></div>
+      </div>
+    </section>
+
+    <!-- Product Sections -->
+    <main class="flex-1 bg-gray-100 dark:bg-gray-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+        <!-- Product Grid (Populated by JavaScript) -->
+        <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+        <!-- No Results Message (Hidden by default, shown by JS) -->
+        <div id="noResults" class="hidden text-center py-16">
+            <i data-feather="alert-circle" class="mx-auto h-12 w-12 text-gray-400"></i>
+            <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">Layanan Tidak Ditemukan</h3>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Coba gunakan kata kunci atau filter kategori yang berbeda.</p>
+        </div>
+
+        <!-- NOKOS Section -->
+        <section id="nokos" class="mt-12 sm:mt-16 bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
+          <div class="text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 flex items-center justify-center gap-3 text-gray-900 dark:text-white">
+              <i data-feather="smartphone" class="w-7 h-7 text-primary-600"></i>
+              NOKOS (Nomor Kosong) Internasional
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Verifikasi OTP untuk berbagai aplikasi. Stok update, garansi 100% uang kembali jika gagal.</p>
+          </div>
+          <div class="mt-8 max-w-4xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <div class="p-6 rounded-2xl border bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+              <div class="mb-4">
+                  <label for="nokosCountry" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Negara</label>
+                  <select id="nokosCountry" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition">
+                    <option value="US">🇺🇸 United States</option>
+                    <option value="GB">🇬🇧 United Kingdom</option>
+                    <option value="ID">🇮🇩 Indonesia</option>
+                    <option value="IN">🇮🇳 India</option>
+                    <option value="SG">🇸🇬 Singapore</option>
+                    <option value="CA">🇨🇦 Canada</option>
+                    <option value="DE">🇩🇪 Germany</option>
+                    <option value="PH">🇵🇭 Philippines</option>
+                    <option value="TH">🇹🇭 Thailand</option>
+                    <option value="MY">🇲🇾 Malaysia</option>
+                  </select>
+              </div>
+              <div class="mb-4">
+                <label for="nokosApp" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Aplikasi</label>
+                <select id="nokosApp" class="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition">
+                  <option>WhatsApp</option>
+                  <option>Telegram</option>
+                  <option>Instagram</option>
+                  <option>TikTok</option>
+                  <option>Facebook</option>
+                  <option>Google</option>
+                  <option>Twitter (X)</option>
+                  <option>Threads</option>
+                </select>
+              </div>
+              <button class="w-full px-4 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2" onclick="orderNokos()">
+                 <i data-feather="send" class="w-5 h-5"></i>
+                Pesan NOKOS Sekarang
+              </button>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">Estimasi harga: <span id="nokosPrice" class="font-semibold">Rp7.000 – Rp25.000</span> / OTP.</p>
+            </div>
+            <div class="p-6 rounded-2xl border bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+              <h3 class="font-semibold mb-3 text-gray-800 dark:text-gray-200 flex items-center gap-2"><i data-feather="info" class="w-5 h-5"></i>Info & Syarat</h3>
+              <ul id="nokos-terms" class="space-y-2"></ul>
+            </div>
+          </div>
         </section>
 
-        <!-- Footer Section (Unchanged) -->
-        <footer class="text-center mt-16 text-gray-500 text-sm">
-            <p>&copy; <span id="year"></span> PAK RT AZ STORE. All Rights Reserved.</p>
-        </footer>
+        <!-- Reviews Section -->
+        <section id="reviews" class="mt-12 sm:mt-16">
+          <div class="text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Ulasan Pelanggan Kami</h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Lihat apa kata mereka yang sudah menggunakan layanan kami.</p>
+          </div>
+          <div id="reviewsGrid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
 
-    </div>
+        <!-- FAQ Section -->
+        <section id="faq" class="mt-12 sm:mt-16">
+           <div class="text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Frequently Asked Questions (FAQ)</h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Temukan jawaban untuk pertanyaan yang paling sering diajukan.</p>
+          </div>
+          <div id="faqContainer" class="mt-8 max-w-3xl mx-auto space-y-4"></div>
+        </section>
 
-    <!-- Purchase Notification Popup -->
-    <div id="purchase-popup" class="fixed top-5 right-5 bg-gray-800 border border-yellow-500 text-white p-4 rounded-lg shadow-2xl z-50 hidden max-w-xs w-full">
-        <!-- Content will be injected by JavaScript -->
-    </div>
+      </div>
+    </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Initialize Lucide Icons ---
-            lucide.createIcons();
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">BADRU STORE</h3>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Platform terpercaya untuk semua kebutuhan digital Anda. Dari meningkatkan eksistensi sosial media hingga menikmati aplikasi premium tanpa batas.</p>
+                <div class="mt-4 flex space-x-4">
+                  <a href="https://wa.me/6282258041628" target="_blank" class="text-gray-500 hover:text-primary-600 transition-colors" aria-label="WhatsApp">
+                      <span class="sr-only">WhatsApp</span>
+                      <i data-feather="message-circle" class="h-6 w-6"></i>
+                  </a>
+                  <a href="https://t.me/Mhmdbadru23" target="_blank" class="text-gray-500 hover:text-primary-600 transition-colors" aria-label="Telegram">
+                      <span class="sr-only">Telegram</span>
+                      <i data-feather="send" class="h-6 w-6"></i>
+                  </a>
+                  <a href="mailto: muhamadbadruwasih8@gmail.com" class="text-gray-500 hover:text-primary-600 transition-colors" aria-label="Email">
+                      <span class="sr-only">Email</span>
+                      <i data-feather="mail" class="h-6 w-6"></i>
+                  </a>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Medan,North+Sumatra" target="_blank" class="text-gray-500 hover:text-primary-600 transition-colors" aria-label="Lokasi">
+                      <span class="sr-only">Lokasi</span>
+                      <i data-feather="map-pin" class="h-6 w-6"></i>
+                  </a>
+                </div>
+            </div>
+            <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+              <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Layanan Utama</h4>
+                  <ul class="mt-4 space-y-2 text-sm">
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Sosial Media</a></li>
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Aplikasi Premium</a></li>
+                      <li><a href="#nokos" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">NOKOS OTP</a></li>
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Tools & SEO</a></li>
+                  </ul>
+              </div>
+              <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Informasi</h4>
+                  <ul class="mt-4 space-y-2 text-sm">
+                      <li><a href="#faq" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">FAQ</a></li>
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Cara Pesan</a></li>
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Syarat & Ketentuan</a></li>
+                      <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600">Kebijakan Privasi</a></li>
+                  </ul>
+              </div>
+              <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Pembayaran</h4>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <img src="https://img.shields.io/badge/BCA-0066AE?style=for-the-badge&logo=bca&logoColor=white" alt="BCA">
+                      <img src="https://img.shields.io/badge/GoPay-00AEEF?style=for-the-badge&logo=gojek&logoColor=white" alt="GoPay">
+                      <img src="https://img.shields.io/badge/DANA-108EE9?style=for-the-badge&logo=dana&logoColor=white" alt="DANA">
+                      <img src="https://img.shields.io/badge/OVO-4D2A86?style=for-the-badge&logo=ovo&logoColor=white" alt="OVO">
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6 text-sm text-gray-500 dark:text-gray-400 text-center">
+            <p>© <span id="year"></span> BADRU STORE. Dibuat dengan ❤️ oleh <strong>Muhamad Badru Wasih</strong>.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
 
-            function padZero(num) { return num < 10 ? '0' + num : num; }
+  <!-- Toast Notification (Hidden by default, shown by JS) -->
+  <div id="toast" class="toast hidden"></div>
 
-            // --- Greeting, Date, and Clock Logic ---
-            function updateDateTime() {
-                const now = new Date();
-                const hour = now.getHours();
-                const greetingEl = document.getElementById('greeting');
-                const datetimeEl = document.getElementById('datetime');
-                const clockEl = document.getElementById('clock');
+  <script>
+    // === DATA CONTENT ===
+    // Data untuk kategori produk
+    const CATEGORIES = [
+      { id: 'promo', name: '🔥 Promo & Favorit' },
+      { id: 'sosmed', name: 'Sosial Media' },
+      { id: 'premium', name: 'Aplikasi Premium' },
+      { id: 'tools', name: 'Tools & Kreatif' },
+      { id: 'lainnya', name: 'Lainnya' },
+    ];
 
-                let greetingText = '';
-                if (hour >= 4 && hour < 11) { greetingText = 'Selamat Pagi ☀️'; } 
-                else if (hour >= 11 && hour < 15) { greetingText = 'Selamat Siang 🌤️'; } 
-                else if (hour >= 15 && hour < 19) { greetingText = 'Selamat Sore 🌇'; } 
-                else { greetingText = 'Selamat Malam 🌃'; }
-                greetingEl.textContent = greetingText;
+    // Data untuk daftar produk
+    const PRODUCTS = [
+      // Promo
+      { id: 'promo_fyp', cat: 'promo', name: 'Paket FYP TikTok', logo: 'https://cdn.simpleicons.org/tiktok/000000', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXsRXXvLY3jbsC7L_AEepXqAbcE4HtbtaB4Okb0fSfku456kEt3FB8Gfk&s=10', desc: 'Kombinasi Views, Likes, dan Shares untuk mendorong konten Anda masuk For You Page.', services: [ { name: 'Paket FYP Basic', price: 25000, unit: 'paket' }, { name: 'Paket FYP Pro', price: 50000, unit: 'paket' } ] },
+      { id: 'promo_selebgram', cat: 'promo', name: 'Paket Selebgram Instan', logo: 'https://cdn.simpleicons.org/instagram/E4405F', imageUrl: 'https://static.vecteezy.com/system/resources/previews/042/387/654/non_2x/instagram-button-icon-set-instagram-screen-social-media-and-social-network-interface-template-stories-user-button-symbol-sign-logo-stories-liked-editorial-free-png.png', desc: 'Dapatkan ribuan followers dan likes berkualitas untuk meningkatkan kredibilitas akun Anda.', services: [ { name: '1K Followers + 500 Likes', price: 45000, unit: 'paket' } ] },
 
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                datetimeEl.textContent = now.toLocaleDateString('id-ID', options);
+      // Sosial Media
+      { id: 'tiktok', cat: 'sosmed', name: 'TikTok Services', logo: 'https://cdn.simpleicons.org/tiktok/000000', imageUrl: 'https://www.sribu.com/_next/image?url=https%3A%2F%2Fprod-sribu.sniag.upcloudobjects.com%2Ffile%2F07e0bee6-b0ac-4aad-91ca-c466fc42cda9.jpg&w=3840&q=75', desc: 'Tingkatkan jangkauan konten TikTok Anda dengan views, likes, dan followers berkualitas.', services: [ { name: '10K Views', price: 15000, unit: 'paket' }, { name: '1K Followers', price: 25000, unit: 'paket' } ] },
+      { id: 'instagram', cat: 'sosmed', name: 'Instagram Services', logo: 'https://cdn.simpleicons.org/instagram/E4405F', imageUrl: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop', desc: 'Bangun audiens setia di Instagram dengan followers, likes, dan views yang relevan.', services: [ { name: '1K Followers', price: 35000, unit: 'paket' }, { name: '2K Likes', price: 18000, unit: 'paket' } ] },
+      { id: 'youtube', cat: 'sosmed', name: 'YouTube Services', logo: 'https://cdn.simpleicons.org/youtube/FF0000', imageUrl: 'https://static.vecteezy.com/system/resources/thumbnails/018/930/575/small_2x/youtube-logo-youtube-icon-transparent-free-png.png', desc: 'Percepat pertumbuhan channel YouTube Anda, mulai dari views hingga jam tayang.', services: [ { name: '10K Views', price: 28000, unit: 'paket' }, { name: '1K Subscribers', price: 120000, unit: 'paket' } ] },
+      { id: 'facebook', cat: 'sosmed', name: 'Facebook Services', logo: 'https://cdn.simpleicons.org/facebook/1877F2', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxAX_FfM5u0EdC0j5EOWZCT726NG4sI_Sqsg&s', desc: 'Tingkatkan interaksi di Halaman Facebook Anda dengan Page Likes dan Post Likes.', services: [ { name: '1K Page Likes', price: 40000, unit: 'paket' } ] },
+      { id: 'twitter', cat: 'sosmed', name: 'Twitter (X) Services', logo: 'https://cdn.simpleicons.org/x/000000', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROXuUR-xvFhzREFWTQ1BubbV41G1-qbt3-mQ&s', desc: 'Perbanyak interaksi di Twitter dengan followers, likes, dan retweets.', services: [ { name: '1K Followers', price: 45000, unit: 'paket' } ] },
+      { id: 'telegram', cat: 'sosmed', name: 'Telegram Services', logo: 'https://cdn.simpleicons.org/telegram/26A5E4', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr1-ythxxCb9MatB1JnhOdWwQ0HdrRJ-3FIQ&s', desc: 'Kembangkan channel atau grup Telegram Anda dengan member dan post views.', services: [ { name: '1K Members', price: 55000, unit: 'paket' } ] },
+      { id: 'threads', cat: 'sosmed', name: 'Threads Services', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpwgvVwJLQHHQkKFLb9L5tcZ-aDDp6_lMMUA&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpwgvVwJLQHHQkKFLb9L5tcZ-aDDp6_lMMUA&s', desc: 'Jadikan akun Threads Anda lebih ramai dengan followers dan likes.', services: [ { name: '1K Followers', price: 42000, unit: 'paket' } ] },
+      { id: 'spotify_promo', cat: 'sosmed', name: 'Spotify Promotion', logo: 'https://cdn.simpleicons.org/spotify/1DB954', imageUrl: 'https://images.unsplash.com/photo-1611339555312-e607c8352fd7?q=80&w=800&auto=format&fit=crop', desc: 'Promosikan lagu Anda di Spotify untuk menjangkau lebih banyak pendengar.', services: [ { name: '1K Plays', price: 30000, unit: 'paket' } ] },
 
-                const hours = padZero(now.getHours());
-                const minutes = padZero(now.getMinutes());
-                const seconds = padZero(now.getSeconds());
-                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+      // Aplikasi Premium
+      { id: 'netflix', cat: 'premium', name: 'Netflix Premium', logo: 'https://cdn.simpleicons.org/netflix/E50914', imageUrl: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=800&auto=format&fit=crop', desc: 'Nikmati ribuan film dan serial TV tanpa gangguan iklan dengan akun premium resmi.', services: [ { name: '1 Bulan', price: 45000, unit: 'akun' }, { name: '3 Bulan', price: 125000, unit: 'akun' }, { name: '6 Bulan', price: 240000, unit: 'akun' }, { name: '1 Tahun', price: 450000, unit: 'akun' } ] },
+      { id: 'ytpremium', cat: 'premium', name: 'YouTube Premium', logo: 'https://cdn.simpleicons.org/youtube/FF0000', imageUrl: 'https://images.unsplash.com/photo-1598550463415-d397fdddc3e0?q=80&w=800&auto=format&fit=crop', desc: 'Tonton jutaan video tanpa iklan, putar di latar belakang, dan akses YouTube Music.', services: [ { name: '1 Bulan', price: 25000, unit: 'akun' }, { name: '3 Bulan', price: 70000, unit: 'akun' }, { name: '6 Bulan', price: 135000, unit: 'akun' }, { name: '1 Tahun', price: 250000, unit: 'akun' } ] },
+      { id: 'spotify', cat: 'premium', name: 'Spotify Murah', logo: 'https://cdn.simpleicons.org/spotify/1DB954', imageUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=800&auto=format&fit=crop', desc: 'Dengarkan musik favoritmu tanpa batas, tanpa iklan, dan bisa diunduh offline.', services: [ { name: '1 Bulan', price: 15000, unit: 'akun' }, { name: '3 Bulan', price: 42000, unit: 'akun' }, { name: '6 Bulan', price: 80000, unit: 'akun' }, { name: '1 Tahun', price: 150000, unit: 'akun' } ] },
+      { id: 'disney', cat: 'premium', name: 'Disney+ Hotstar', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfw_fHNSk4-sVqKS593AX9zWOGnGTdzHK1QQ&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfw_fHNSk4-sVqKS593AX9zWOGnGTdzHK1QQ&s', desc: 'Tonton semua film Marvel, Disney, Pixar, dan konten lokal eksklusif sepuasnya.', services: [ { name: '1 Bulan', price: 30000, unit: 'akun' }, { name: '3 Bulan', price: 85000, unit: 'akun' }, { name: '6 Bulan', price: 160000, unit: 'akun' }, { name: '1 Tahun', price: 300000, unit: 'akun' } ] },
+      { id: 'primevideo', cat: 'premium', name: 'Amazon Prime Video', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdvqb5eTdLn0X_lTgdGybV1f7xXcCIX5iV85OZApmV_Xc1oCmwRu3heJjm&s=10', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdvqb5eTdLn0X_lTgdGybV1f7xXcCIX5iV85OZApmV_Xc1oCmwRu3heJjm&s=10', desc: 'Akses ribuan film dan serial original dari Amazon dengan kualitas terbaik.', services: [ { name: '1 Bulan', price: 30000, unit: 'akun' }, { name: '3 Bulan', price: 85000, unit: 'akun' }, { name: '6 Bulan', price: 160000, unit: 'akun' }, { name: '1 Tahun', price: 300000, unit: 'akun' } ] },
+      { id: 'wetv', cat: 'premium', name: 'WeTV Premium', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFAjPVEOMC5ibwjLUZF-A0-8n-nrneG7mzAg&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFAjPVEOMC5ibwjLUZF-A0-8n-nrneG7mzAg&s', desc: 'Jangan lewatkan drama Asia favoritmu, tonton lebih awal dan tanpa iklan.', services: [ { name: '1 Bulan', price: 18000, unit: 'akun' }, { name: '3 Bulan', price: 50000, unit: 'akun' }, { name: '6 Bulan', price: 95000, unit: 'akun' }, { name: '1 Tahun', price: 180000, unit: 'akun' } ] },
+      { id: 'viu', cat: 'premium', name: 'Viu Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Viu_logo.svg/2560px-Viu_logo.svg.png', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Viu_logo.svg/2560px-Viu_logo.svg.png', desc: 'Streaming drama Korea, variety show, dan film Asia terbaru dengan subtitle Indonesia.', services: [ { name: '1 Bulan', price: 20000, unit: 'akun' }, { name: '3 Bulan', price: 55000, unit: 'akun' }, { name: '6 Bulan', price: 105000, unit: 'akun' }, { name: '1 Tahun', price: 200000, unit: 'akun' } ] },
+      { id: 'bstation', cat: 'premium', name: 'Bstation Premium', logo: 'https://cdn.simpleicons.org/bilibili/00A1D6', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkEkrpkV8-beTYK5D3Zgqbx5rYU1rFU9wpebBGxDaLVjeTe8JJqo2vZbTE&s=10', desc: 'Platform streaming anime terlengkap. Nikmati episode terbaru dan kualitas HD.', services: [ { name: '1 Bulan', price: 22000, unit: 'akun' }, { name: '3 Bulan', price: 60000, unit: 'akun' }, { name: '6 Bulan', price: 115000, unit: 'akun' }, { name: '1 Tahun', price: 220000, unit: 'akun' } ] },
+      { id: 'visionplus', cat: 'premium', name: 'Vision+ Premium', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4G_TlLZoD09RbX6hSYWFInPsbQb8a_s5JXdaHXfUE2VmR6JGWUmVCAzZK&s=10', imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800&auto=format&fit=crop', desc: 'Tonton channel TV lokal & internasional, serta konten original Vision+ tanpa batas.', services: [ { name: '1 Bulan', price: 18000, unit: 'akun' }, { name: '3 Bulan', price: 50000, unit: 'akun' }, { name: '6 Bulan', price: 95000, unit: 'akun' }, { name: '1 Tahun', price: 180000, unit: 'akun' } ] },
+
+      // Tools & Kreatif
+      { id: 'canva', cat: 'tools', name: 'Canva Pro', logo: 'https://cdn.simpleicons.org/canva/00C4CC', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUAh-n-Z2Et0_7HdSjQxHdQBd-IKkvW401evvURDWJfkxNFI9Cr0HPVnO9&s=10', desc: 'Akses semua fitur desain premium, template, dan aset tanpa batas di Canva.', services: [ { name: '1 Bulan', price: 20000, unit: 'akun' }, { name: '3 Bulan', price: 55000, unit: 'akun' }, { name: '6 Bulan', price: 105000, unit: 'akun' }, { name: '1 Tahun', price: 200000, unit: 'akun' } ] },
+      { id: 'capcut', cat: 'tools', name: 'CapCut Pro', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS76C9dbJfnue0zYwu5VcW7kR9tVgziqj-PJA&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS76C9dbJfnue0zYwu5VcW7kR9tVgziqj-PJA&s', desc: 'Edit video seperti pro dengan semua fitur, efek, dan template premium terbuka.', services: [ { name: '1 Bulan', price: 15000, unit: 'akun' }, { name: '3 Bulan', price: 42000, unit: 'akun' }, { name: '6 Bulan', price: 80000, unit: 'akun' }, { name: '1 Tahun', price: 150000, unit: 'akun' } ] },
+      { id: 'chatgpt', cat: 'tools', name: 'ChatGPT Plus', logo: 'https://cdn.simpleicons.org/openai/412991', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKC9aTLtGgReeNiK-lEYHATQtD2hje2oE-5g&s', desc: 'Akses model AI tercanggih dari OpenAI dengan respons lebih cepat dan fitur eksklusif.', services: [ { name: 'Langganan Bulanan', price: 150000, unit: 'akun' } ] },
+      { id: 'premierepro', cat: 'tools', name: 'Adobe Premiere Pro', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9S7KkqqhmwQ-i76YHO6jazXNycJRhUq8QtqrymLU2-z7VmDGWwRSiGQI&s=10', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9S7KkqqhmwQ-i76YHO6jazXNycJRhUq8QtqrymLU2-z7VmDGWwRSiGQI&s=10', desc: 'Software video editing standar industri. Dapatkan akses penuh ke semua fiturnya.', services: [ { name: 'Langganan Bulanan', price: 95000, unit: 'akun' } ] },
+      { id: 'alightmotion', cat: 'tools', name: 'Alight Motion Pro', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lAJRRDupQu1n0SqBYFjkH_48dhiuCSIrDA&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lAJRRDupQu1n0SqBYFjkH_48dhiuCSIrDA&s', desc: 'Buat animasi dan motion graphics profesional langsung dari ponsel Anda.', services: [ { name: '1 Bulan', price: 25000, unit: 'akun' }, { name: '3 Bulan', price: 70000, unit: 'akun' }, { name: '6 Bulan', price: 135000, unit: 'akun' }, { name: '1 Tahun', price: 250000, unit: 'akun' } ] },
+      { id: 'semrush', cat: 'tools', name: 'Semrush', logo: 'https://cdn.simpleicons.org/semrush/FF642D', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBW7vq5CvbSOwIM5MGoDboV1XEBh24XBtQhQ&s', desc: 'Tool SEO & marketing andalan untuk riset keyword, analisis kompetitor, dan audit situs.', services: [ { name: '7 Hari', price: 35000, unit: 'slot' }, { name: '30 Hari', price: 150000, unit: 'slot' } ] },
+
+      // Lainnya
+      { id: 'getcontact', cat: 'lainnya', name: 'Getcontact Premium', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgFxiEUD9iOPeEG23BeiSpd1qihD1EK3Whw&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgFxiEUD9iOPeEG23BeiSpd1qihD1EK3Whw&s', desc: 'Lihat siapa yang menyimpan nomormu dan bagaimana mereka menamainya. Tanpa batas!', services: [ { name: '1 Bulan', price: 20000, unit: 'akun' } ] },
+      { id: 'webtoon', cat: 'lainnya', name: 'Webtoon Coins', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOY1zf_BYAd7jo4cADVRlzfBryTu22rcLJjSwZUkrGWksGVIdjDZWvGIA&s=10', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOY1zf_BYAd7jo4cADVRlzfBryTu22rcLJjSwZUkrGWksGVIdjDZWvGIA&s=10', desc: 'Baca episode terbaru dari komik favoritmu lebih cepat dengan koin resmi.', services: [ { name: '70 Koin', price: 15000, unit: 'paket' } ] },
+      { id: 'bigo', cat: 'lainnya', name: 'Bigo Live', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOYaEnhcUoDJwspRcCvViZxRxiY-H90SZ6pg&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOYaEnhcUoDJwspRcCvViZxRxiY-H90SZ6pg&s', desc: 'Top up Diamonds Bigo untuk memberikan gift kepada streamer favorit Anda.', services: [ { name: '85 Diamonds', price: 25000, unit: 'paket' } ] },
+      { id: 'whatsapp_blast', cat: 'lainnya', name: 'WhatsApp Blast', logo: 'https://cdn.simpleicons.org/whatsapp/25D366', imageUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop', desc: 'Kirim pesan massal ke ribuan nomor untuk kebutuhan promosi atau informasi.', services: [ { name: '1000 Pesan', price: 100000, unit: 'paket' } ] },
+      { id: 'google_review', cat: 'lainnya', name: 'Google Reviews', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThtDY3lQL0z3nfknrcD16ZxHe9BGCj-MlTGQ&s', imageUrl: 'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=800&auto=format&fit=crop', desc: 'Tingkatkan reputasi bisnis Anda di Google Maps dengan ulasan positif.', services: [ { name: '10 Ulasan Bintang 5', price: 150000, unit: 'paket' } ] },
+      { id: 'traffic', cat: 'lainnya', name: 'Traffic Website', logo: 'https://cdn.simpleicons.org/googleanalytics/E37400', imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop', desc: 'Datangkan ribuan pengunjung ke website Anda dengan traffic berkualitas.', services: [ { name: '10K Pengunjung', price: 50000, unit: 'paket' } ] },
+      { id: 'discord', cat: 'lainnya', name: 'Discord Services', logo: 'https://cdn.simpleicons.org/discord/5865F2', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWVYi665fOHg490YGYBmxWFbR5_NOjfkEPDg&s', desc: 'Ramaikan server Discord Anda dengan member online dan offline.', services: [ { name: '1K Members Offline', price: 45000, unit: 'paket' } ] },
+      { id: 'linkedin', cat: 'lainnya', name: 'LinkedIn Services', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYqE3asP0YRPRnR6U3BS85jeB2u7UWPrmrzA&s', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYqE3asP0YRPRnR6U3BS85jeB2u7UWPrmrzA&s', desc: 'Bangun jaringan profesional Anda dengan koneksi dan interaksi di LinkedIn.', services: [ { name: '500 Koneksi', price: 75000, unit: 'paket' } ] },
+      { id: 'shopee', cat: 'lainnya', name: 'Shopee Services', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8FcDytfk5mIru_FX_oSvV3FauXJiyLATVx2TEdEbtGbxy37KEb2ZTzqS9&s=10', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8FcDytfk5mIru_FX_oSvV3FauXJiyLATVx2TEdEbtGbxy37KEb2ZTzqS9&s=10', desc: 'Tingkatkan penjualan di Shopee dengan followers toko dan ulasan produk.', services: [ { name: '1K Followers Toko', price: 60000, unit: 'paket' } ] },
+    ];
+
+    // Data untuk ulasan pelanggan
+    const REVIEWS = [
+        { name: 'Rizki A.', city: 'Jakarta', rating: 5, product: 'Instagram Followers', text: 'Prosesnya cepet banget, followers langsung masuk dan real. Adminnya juga ramah dan fast response. Recommended seller!' },
+        { name: 'Nadia S.', city: 'Surabaya', rating: 5, product: 'Netflix Premium', text: 'Udah langganan 3 bulan di sini, akunnya aman dan belum pernah ada masalah. Harganya juga paling murah. Mantap!' },
+        { name: 'Budi P.', city: 'Bandung', rating: 4, product: 'NOKOS WhatsApp', text: 'Berhasil buat verifikasi WhatsApp. Awalnya sempet gagal sekali, tapi langsung diganti nomor baru sama admin. Pelayanan oke.' },
+        { name: 'Citra L.', city: 'Medan', rating: 5, product: 'Spotify Murah', text: 'Akhirnya bisa dengerin lagu tanpa iklan. Proses aktivasinya dibantu sampai bisa. Terima kasih banyak, Badru Store!' },
+        { name: 'Eko W.', city: 'Makassar', rating: 5, product: 'YouTube Views', text: 'Views-nya masuk secara bertahap jadi kelihatan natural dan aman buat channel. Pasti order lagi nanti.' },
+        { name: 'Fitri H.', city: 'Yogyakarta', rating: 5, product: 'Canva Pro', text: 'Sangat membantu buat tugas kuliah. Dengan harga segini bisa dapet akses Canva Pro, worth it banget!' },
+    ];
+
+    // Data untuk FAQ
+    const FAQS = [
+        { q: 'Bagaimana cara memesan layanan?', a: 'Pilih produk dan layanan yang Anda inginkan, lalu klik tombol "Pesan". Anda akan diarahkan ke WhatsApp dengan format pesanan yang sudah terisi otomatis. Cukup kirim pesan tersebut dan tunggu balasan admin.' },
+        { q: 'Apakah semua layanan di sini aman?', a: 'Ya, kami menjamin semua layanan yang kami sediakan 100% aman. Kami menggunakan metode yang telah teruji untuk memastikan akun Anda tetap aman dan terhindar dari sanksi platform.' },
+        { q: 'Berapa lama proses pengerjaannya?', a: 'Waktu proses bervariasi tergantung layanan. Untuk aplikasi premium dan NOKOS biasanya instan (1-10 menit). Untuk layanan sosial media, prosesnya bertahap (drip) antara 1-24 jam agar terlihat natural.' },
+        { q: 'Apakah ada garansi?', a: 'Tentu. Semua layanan kami bergaransi sesuai dengan yang tertera di deskripsi produk. Jika terjadi masalah seperti drop followers atau akun premium bermasalah, segera hubungi admin untuk klaim garansi.' },
+        { q: 'Metode pembayaran apa saja yang diterima?', a: 'Kami menerima pembayaran melalui transfer bank (BCA), dan e-wallet (GoPay, DANA, OVO). Informasi rekening akan diberikan oleh admin setelah Anda mengirim format pesanan.' },
+    ];
+
+    // Data untuk syarat dan ketentuan NOKOS
+    const NOKOS_TERMS = [
+        { icon: 'check-circle', text: 'Nomor hanya untuk verifikasi OTP <strong>satu kali</strong> (non-keep).' },
+        { icon: 'shield', text: '<strong>Garansi 100%</strong> jika gagal menerima OTP. Klaim maks. 30 menit.' },
+        { icon: 'alert-triangle', text: 'Dilarang keras untuk spam, penipuan, atau aktivitas ilegal lainnya.' },
+        { icon: 'clock', text: 'Proses cepat <strong>1–5 menit</strong> selama jam online admin.' },
+    ];
+
+    // New: Data untuk quotes acak
+    const QUOTES = [
+        { text: "Kesuksesan adalah hasil dari persiapan, kerja keras, dan belajar dari kegagalan.", author: "Colin Powell" },
+        { text: "Satu-satunya cara untuk melakukan pekerjaan hebat adalah mencintai apa yang Anda lakukan.", author: "Steve Jobs" },
+        { text: "Masa depan adalah milik mereka yang percaya pada keindahan impian mereka.", author: "Eleanor Roosevelt" },
+        { text: "Jangan pernah menyerah pada mimpi. Pergi tidur selama 20 menit dan coba lagi.", author: "Anonim" },
+        { text: "Hidup itu seperti mengendarai sepeda. Untuk menjaga keseimbangan, Anda harus terus bergerak.", author: "Albert Einstein" },
+        { text: "Peluang tidak terjadi. Anda menciptakannya.", author: "Chris Grosser" },
+        { text: "Cara terbaik untuk memprediksi masa depan adalah dengan menciptakannya.", author: "Peter Drucker" },
+        { text: "Keberanian adalah melakukan apa yang Anda takuti. Tidak ada keberanian tanpa rasa takut.", author: "Eddie Rickenbacker" },
+        { text: "Jika Anda ingin mencapai kebesaran, berhentilah meminta izin.", author: "Anonim" },
+        { text: "Percayalah bahwa hidup itu layak dijalani dan keyakinan Anda akan membantu menciptakan fakta.", author: "William James" }
+    ];
+
+    // === UTILITY FUNCTIONS ===
+    // Fungsi untuk format angka ke Rupiah (compact notation)
+    const IDR = n => new Intl.NumberFormat('id-ID', { notation: 'compact', maximumFractionDigits: 1 }).format(n);
+    // Shortcut untuk document.querySelector
+    const qs = s => document.querySelector(s);
+    // Shortcut untuk Array.from(document.querySelectorAll)
+    const qsa = s => Array.from(document.querySelectorAll(s));
+
+    // === DYNAMIC STATS ANIMATION ===
+    function animateStat(element, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const current = Math.floor(progress * (end - start) + start);
+            element.textContent = `${new Intl.NumberFormat('id-ID').format(current)}+`;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
             }
-            
-            // --- Footer Year Logic ---
-            document.getElementById('year').textContent = new Date().getFullYear();
+        };
+        window.requestAnimationFrame(step);
+    }
 
-            // --- Purchase Popup Notification Logic ---
-            const popupEl = document.getElementById('purchase-popup');
-            const purchases = [
-                { name: 'Rizky', city: 'Jakarta', item: 'Akun Pangkat Major' },
-                { name: 'Budi', city: 'Surabaya', item: 'Voucher 10.000 Cash' },
-                { name: 'Eka', city: 'Bandung', item: 'Jasa GB 1 Minggu' },
-                { name: 'Putra', city: 'Medan', item: 'Voucher 50.000 Cash' },
-                { name: 'Dewi', city: 'Makassar', item: 'Akun Pangkat Diamond' },
-                { name: 'Agus', city: 'Yogyakarta', item: 'Jasa GB Misi' },
-                { name: 'Sari', city: 'Palembang', item: 'Voucher 20.000 Cash' },
-            ];
+    // Memperbarui statistik secara berkala
+    function updateStats() {
+        const activeUsersEl = qs('#active-users');
+        const totalPurchasesEl = qs('#total-purchases');
+        const totalMembersEl = qs('#total-members');
 
-            function showPurchasePopup() {
-                const randomPurchase = purchases[Math.floor(Math.random() * purchases.length)];
-                
-                popupEl.innerHTML = `
-                    <div class="flex items-center">
-                        <div class="mr-3 text-green-400">
-                            <i data-lucide="check-circle-2" class="w-8 h-8"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold">${randomPurchase.name} dari ${randomPurchase.city}</p>
-                            <p class="text-sm text-gray-300">baru saja membeli ${randomPurchase.item}.</p>
-                        </div>
-                    </div>
-                `;
-                lucide.createIcons(); 
+        // Mengambil nilai saat ini atau nilai default jika belum ada
+        const currentUsers = parseInt(activeUsersEl.textContent.replace(/[^0-9]/g, '')) || 1250;
+        const currentPurchases = parseInt(totalPurchasesEl.textContent.replace(/[^0-9]/g, '')) || 25800;
+        const currentMembers = parseInt(totalMembersEl.textContent.replace(/[^0-9]/g, '')) || 8500;
 
-                popupEl.classList.remove('hidden', 'popup-exit');
-                popupEl.classList.add('popup-enter');
+        // Menambahkan sedikit angka acak untuk simulasi pertumbuhan
+        animateStat(activeUsersEl, currentUsers, currentUsers + Math.floor(Math.random() * 5) + 1, 2000);
+        animateStat(totalPurchasesEl, currentPurchases, currentPurchases + Math.floor(Math.random() * 20) + 5, 2000);
+        animateStat(totalMembersEl, currentMembers, currentMembers + Math.floor(Math.random() * 10) + 2, 2000);
+    }
 
-                setTimeout(() => {
-                    popupEl.classList.remove('popup-enter');
-                    popupEl.classList.add('popup-exit');
-                    // Optional: fully hide after animation ends
-                    setTimeout(() => popupEl.classList.add('hidden'), 500);
-                }, 5000); // Popup stays for 5 seconds
-            }
 
-            // --- Initial Calls and Intervals ---
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
+    // === DYNAMIC CONTENT RENDERING ===
+    // Merender ulasan pelanggan
+    function renderReviews() {
+        const grid = qs('#reviewsGrid');
+        if (!grid) return;
+        grid.innerHTML = REVIEWS.map(r => `
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                <div class="flex items-center mb-2">
+                    ${Array(5).fill(0).map((_, i) => `<i data-feather="star" class="w-4 h-4 ${i < r.rating ? 'text-amber-400 fill-current' : 'text-gray-300 dark:text-gray-600'}"></i>`).join('')}
+                </div>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">"${r.text}"</p>
+                <div class="text-sm font-semibold text-gray-900 dark:text-white">${r.name}</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">${r.city} • Membeli ${r.product}</div>
+            </div>
+        `).join('');
+    }
 
-            setTimeout(() => {
-                showPurchasePopup();
-                setInterval(showPurchasePopup, 12000); // Show new popup every 12 seconds
-            }, 4000); // Wait 4 seconds before first popup
-        });
-    </script>
+    // Merender FAQ
+    function renderFaqs() {
+        const container = qs('#faqContainer');
+        if (!container) return;
+        container.innerHTML = FAQS.map(f => `
+            <details class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 group transition-all duration-300">
+                <summary class="flex items-center justify-between font-semibold cursor-pointer text-gray-900 dark:text-white">
+                    ${f.q}
+                    <i data-feather="chevron-down" class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <p class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400">${f.a}</p>
+            </details>
+        `).join('');
+    }
 
+    // Merender syarat dan ketentuan NOKOS
+    function renderNokosTerms() {
+        const list = qs('#nokos-terms');
+        if(!list) return;
+        list.innerHTML = NOKOS_TERMS.map(term => `
+            <li class="flex items-start gap-3">
+              <i data-feather="${term.icon}" class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5"></i>
+              <span class="text-sm text-gray-600 dark:text-gray-400">${term.text}</span>
+            </li>
+        `).join('');
+    }
+
+    // === NOTIFICATION SYSTEM ===
+    // Menampilkan notifikasi pembelian acak
+    function showNotification() {
+        const bar = qs('#notification-bar');
+        const randomProduct = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+        const randomName = ['A***a', 'B***i', 'C***a', 'D***i', 'E***o'][Math.floor(Math.random() * 5)];
+        const randomCity = ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Makassar'][Math.floor(Math.random() * 5)];
+
+        bar.innerHTML = `🔥 <strong>${randomName}</strong> dari <strong>${randomCity}</strong> baru saja membeli <strong>${randomProduct.name}</strong>!`;
+        bar.classList.remove('hidden');
+        bar.classList.add('animate-slide-down'); // Animasi muncul
+        bar.classList.remove('animate-slide-up'); // Pastikan animasi hilang tidak aktif
+
+        setTimeout(() => {
+            bar.classList.add('animate-slide-up'); // Animasi hilang setelah 5 detik
+            bar.classList.remove('animate-slide-down');
+        }, 5000);
+    }
+
+    // === GREETING, DATETIME, & QUOTE ===
+    // Fungsi untuk memperbarui jam, diperbarui setiap detik
+    function updateClock() {
+        const now = new Date();
+        const options = {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        // Format tanggal dan waktu, ganti titik dengan titik dua untuk jam
+        const dateTimeString = new Intl.DateTimeFormat('id-ID', options).format(now).replace(/\./g, ':');
+        qs('#datetime').textContent = dateTimeString;
+    }
+
+    // Fungsi untuk memperbarui sapaan dan kutipan, diperbarui setiap 30 detik
+    function updateGreetingAndQuote() {
+      const now = new Date();
+      const jam = now.getHours();
+      let greet = 'Selamat malam 🌃';
+      if (jam >= 4 && jam < 11) greet = 'Selamat pagi ☀️';
+      else if (jam >= 11 && jam < 15) greet = 'Selamat siang 🌤️';
+      else if (jam >= 15 && jam < 19) greet = 'Selamat sore 🌇';
+      qs('#greeting').textContent = greet;
+
+      // Menampilkan quote acak
+      const randomQuoteEl = qs('#randomQuote');
+      const randomIndex = Math.floor(Math.random() * QUOTES.length);
+      const selectedQuote = QUOTES[randomIndex];
+      randomQuoteEl.textContent = `"${selectedQuote.text}" — ${selectedQuote.author}`;
+    }
+
+    // === THEME TOGGLE ===
+    // Menerapkan tema (terang/gelap)
+    function applyTheme(mode) {
+      if (mode === 'dark') {
+        document.documentElement.classList.add('dark');
+        qs('#theme-icon-dark').classList.add('hidden');
+        qs('#theme-icon-light').classList.remove('hidden');
+      } else {
+        document.documentElement.classList.remove('dark');
+        qs('#theme-icon-dark').classList.remove('hidden');
+        qs('#theme-icon-light').classList.add('hidden');
+      }
+    }
+
+    // Event listener untuk tombol tema
+    qs('#themeToggle').addEventListener('click', () => {
+      const newMode = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      localStorage.setItem('theme', newMode); // Simpan preferensi tema
+      applyTheme(newMode);
+      toast(`Mode ${newMode === 'dark' ? 'Gelap' : 'Terang'} diaktifkan`);
+    });
+
+    // === CATEGORY PILLS ===
+    // Merender tombol kategori
+    function renderCategoryPills() {
+      const wrap = qs('#categoryPills');
+      wrap.innerHTML = '';
+      // Tombol "Semua"
+      const allBtn = document.createElement('button');
+      allBtn.className = pillCls(true); // Aktif secara default
+      allBtn.textContent = 'Semua';
+      allBtn.onclick = () => filterCategory('all', allBtn);
+      wrap.appendChild(allBtn);
+      // Tombol kategori lainnya
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = pillCls();
+        btn.textContent = cat.name;
+        btn.dataset.cat = cat.id;
+        btn.onclick = () => filterCategory(cat.id, btn);
+        wrap.appendChild(btn);
+      });
+    }
+    // Fungsi helper untuk class tombol kategori
+    const pillCls = (active = false) => `px-4 py-1.5 rounded-full border transition-colors duration-200 text-sm font-medium ${active ? 'bg-primary-600 text-white border-primary-600' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'}`;
+
+    let CURRENT_CAT = 'all'; // Kategori yang sedang aktif
+    // Fungsi untuk memfilter produk berdasarkan kategori
+    function filterCategory(cat, el) {
+      CURRENT_CAT = cat;
+      // Update class untuk tombol aktif
+      qsa('#categoryPills > button').forEach(b => b.className = pillCls(b === el));
+      renderProducts(); // Render ulang produk
+    }
+
+    // === PRODUCTS RENDER ===
+    // Merender kartu produk
+    function renderProducts() {
+      const q = qs('#searchInput').value.toLowerCase().trim(); // Ambil nilai pencarian
+      const grid = qs('#productGrid');
+      grid.innerHTML = '';
+
+      // Filter produk berdasarkan kategori dan pencarian
+      const filteredProducts = PRODUCTS
+        .filter(p => CURRENT_CAT === 'all' ? true : p.cat === CURRENT_CAT)
+        .filter(p => q ? (p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)) : true);
+
+      // Tampilkan/sembunyikan pesan "Layanan Tidak Ditemukan"
+      qs('#noResults').classList.toggle('hidden', filteredProducts.length > 0);
+
+      // Tambahkan kartu produk ke grid
+      filteredProducts.forEach(p => grid.appendChild(ProductCard(p)));
+
+      // Tambahkan kartu "Layanan Lain" di akhir
+      grid.appendChild(OtherServicesCard());
+
+      feather.replace(); // Ganti ikon Feather
+    }
+
+    // Fungsi untuk membuat elemen kartu produk
+    function ProductCard(p) {
+      const card = document.createElement('div');
+      card.className = 'bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm card-hover flex flex-col overflow-hidden';
+      card.innerHTML = `
+        <div class="aspect-w-16 aspect-h-9 w-full overflow-hidden">
+            <img src="${p.imageUrl}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Error&font=inter';">
+        </div>
+        <div class="p-4 flex flex-col flex-grow">
+          <div class="flex items-center gap-3 mb-2">
+            <img src="${p.logo}" class="h-6 w-6 object-contain" alt="${p.name} logo"/>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">${p.name}</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">${p.desc}</p>
+
+          <div class="space-y-2 mb-4">
+            ${p.services.map((s, i) => `
+              <div class='flex items-center justify-between gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700'>
+                <div class='font-medium text-sm text-gray-800 dark:text-gray-200'>${s.name}</div>
+                <div class='text-right flex-shrink-0'>
+                  <div class='font-semibold text-gray-900 dark:text-white'>Rp${new Intl.NumberFormat('id-ID').format(s.price)}</div>
+                  <div class='text-[11px] text-gray-500 dark:text-gray-400'>/ ${s.unit}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="mt-auto flex items-center gap-2">
+            <select class="flex-1 px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm" aria-label="Pilih Layanan">
+              ${p.services.map((s, i) => `<option value='${i}'>${s.name}</option>`).join('')}
+            </select>
+            <button class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2" onclick="orderProduct('${p.id}', this)">
+                <i data-feather="send" class="w-4 h-4"></i>
+                <span>Pesan</span>
+            </button>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    // Fungsi untuk membuat kartu "Layanan Lain"
+    function OtherServicesCard() {
+        const card = document.createElement('div');
+        card.className = 'bg-white dark:bg-gray-800 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-col items-center justify-center p-6 text-center';
+        card.innerHTML = `
+            <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center mb-4">
+                <i data-feather="plus-circle" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+            </div>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Butuh Layanan Lain?</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-4">Tidak menemukan aplikasi atau layanan yang Anda cari? Hubungi kami!</p>
+            <button onclick="contactAdmin('Layanan Kustom')" class="w-full px-4 py-2.5 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2">
+                <i data-feather="message-circle" class="w-4 h-4"></i>
+                Tanyakan via WhatsApp
+            </button>
+        `;
+        return card;
+    }
+
+    // === ORDER FLOW ===
+    // Fungsi untuk menghasilkan ID pesanan unik
+    function generateOrderId() {
+      return `BS-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    }
+
+    // Fungsi untuk memesan produk via WhatsApp
+    function orderProduct(pid, btn) {
+      const p = PRODUCTS.find(x => x.id === pid);
+      const select = btn.parentElement.querySelector('select');
+      const s = p.services[+select.value]; // Ambil layanan yang dipilih
+      const orderId = generateOrderId();
+
+      const text = `Halo Admin, saya mau pesan:\n\n*ID Pesanan: ${orderId}*\n*Produk:* ${p.name}\n*Layanan:* ${s.name}\n*Harga:* Rp${new Intl.NumberFormat('id-ID').format(s.price)} / ${s.unit}\n\nMohon info lanjut untuk pembayaran. Terima kasih.`;
+      const phone = '6282258041628'; // Nomor WhatsApp admin
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+      toast(`Membuka WhatsApp untuk pesanan <br><strong class='font-semibold'>${p.name} - ${s.name}</strong>`);
+      window.open(url, '_blank'); // Buka link WhatsApp di tab baru
+    }
+
+    // Fungsi untuk memesan NOKOS via WhatsApp
+    function orderNokos() {
+      const country = qs('#nokosCountry').options[qs('#nokosCountry').selectedIndex].text;
+      const app = qs('#nokosApp').value;
+      const orderId = generateOrderId();
+
+      const text = `Halo Admin, saya mau pesan NOKOS:\n\n*ID Pesanan: ${orderId}*\n*Negara:* ${country}\n*Aplikasi:* ${app}\n\nMohon info ketersediaan dan harga. Terima kasih.`;
+      const phone = '6282258041628'; // Nomor WhatsApp admin
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+      toast(`Membuka WhatsApp untuk pesanan NOKOS <br><strong class='font-semibold'>${country.trim()} - ${app}</strong>`);
+      window.open(url, '_blank');
+    }
+
+    // Fungsi untuk menghubungi admin untuk layanan kustom
+    function contactAdmin(subject) {
+        const text = `Halo Admin, saya ingin bertanya tentang *${subject}* yang tidak ada di daftar. Mohon informasinya. Terima kasih.`;
+        const phone = '6282258041628'; // Nomor WhatsApp admin
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+        toast(`Membuka WhatsApp untuk bertanya...`);
+        window.open(url, '_blank');
+    }
+
+    // === TOAST NOTIFICATION ===
+    // Menampilkan pesan toast
+    function toast(html) {
+      const el = qs('#toast');
+      el.className = 'toast'; // Reset class
+      el.innerHTML = `<div class='flex items-center gap-3 px-5 py-3 rounded-xl bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium shadow-lg'><i data-feather="check-circle" class="w-5 h-5 text-emerald-400"></i><span>${html}</span></div>`;
+      feather.replace(); // Ganti ikon Feather di dalam toast
+      setTimeout(() => el.classList.add('hidden'), 4000); // Sembunyikan setelah 4 detik
+    }
+
+    // === INITIALIZATION ===
+    // Jalankan fungsi-fungsi saat DOM selesai dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      // Terapkan tema yang tersimpan atau default 'light'
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      applyTheme(savedTheme);
+
+      // Panggil fungsi untuk pertama kali agar tidak ada jeda
+      updateClock();
+      updateGreetingAndQuote();
+
+      // Atur interval pembaruan
+      setInterval(updateClock, 1000); // Perbarui jam setiap detik
+      setInterval(updateGreetingAndQuote, 30000); // Perbarui sapaan & kutipan setiap 30 detik
+
+      // Render semua komponen dinamis lainnya
+      renderCategoryPills();
+      renderProducts();
+      renderReviews();
+      renderFaqs();
+      renderNokosTerms();
+
+      // Set tahun di footer
+      qs('#year').textContent = new Date().getFullYear();
+
+      feather.replace(); // Ganti semua ikon Feather di halaman
+
+      // Mulai loop notifikasi pembelian
+      showNotification();
+      setInterval(showNotification, 8000); // Tampilkan notifikasi setiap 8 detik
+
+      // Mulai loop update statistik
+      updateStats();
+      setInterval(updateStats, 3000); // Update statistik setiap 3 detik
+      
+      // Event listener untuk input pencarian
+      qs('#searchInput').addEventListener('input', renderProducts);
+    });
+  </script>
 </body>
 </html>
